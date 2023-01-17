@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'screens/main_screen.dart';
+
 void main(){
   runApp(const MyApp());
 }
@@ -13,7 +15,8 @@ class MyApp extends StatelessWidget {
       title: "Flutter ToDo List App",
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.dark,
-      home: ToDoScreen(),
+      home: MainScreen(),
+      
     );
   }
 }
