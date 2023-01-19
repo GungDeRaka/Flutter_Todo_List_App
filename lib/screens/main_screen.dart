@@ -17,30 +17,30 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [ChangeNotifierProvider<ToDoController>(create: (context) => ToDoController(),)],
-      child: Scaffold(
+    return  Scaffold(
         body: myScreens[currentIndex],
-        floatingActionButton: Consumer<ToDoController>(
-          builder:(context, todo, child) => (currentIndex == 0)? FloatingActionButton(
-            child: const Icon(Icons.add),
-            onPressed: () {
-              todo.bottomSheet(context);
-            },heroTag: "FAB",
-          ) : FloatingActionButton(
-            child: const Icon(Icons.delete_forever_sharp),
-            onPressed: () {
-              todo.bottomSheet(context);
-            },heroTag: "FAB",
-          ),
-        ),
+        floatingActionButton:  (currentIndex == 0)
+              ? FloatingActionButton(
+                  onPressed: () {
+                    context.read<ToDoController>().bottomSheet(context);
+                  },
+                  heroTag: "FAB",
+                  child: const Icon(Icons.add),
+                )
+              : FloatingActionButton(
+                  onPressed: () {
+                    context.read<ToDoController>().bottomSheet(context);
+                  },
+                  heroTag: "FAB",
+                  child: const Icon(Icons.delete_forever_sharp),
+                ),
+        
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: Hero(
-
           tag: "FAB",
           child: BottomNavigationBar(
-            unselectedItemColor: Colors.white,
-            showUnselectedLabels: false,
+              unselectedItemColor: Colors.white,
+              showUnselectedLabels: false,
               elevation: 16,
               onTap: (value) {
                 setState(() {
@@ -54,7 +54,6 @@ class _MainScreenState extends State<MainScreen> {
                     icon: Icon(Icons.check_outlined), label: "Completed")
               ]),
         ),
-      ),
-    );
+      );
   }
 }

@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_list_app/widgets/todo_listtile.dart';
+
+import '../controller/todo_controller.dart';
 
 class ToDo extends StatelessWidget {
   const ToDo({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(child: Text("Tasks list",
-      style: TextStyle(
-      fontSize: 20.0,
-      fontWeight: FontWeight.bold,
+    return Scaffold(
+      body: ListView.builder(
+        itemCount: context.watch<ToDoController>().taskList.length,
+        itemBuilder: ((context, index) => ToDoListTile(
+            titleText: context.watch<ToDoController>().taskList[index])),
       ),
-      ),),
     );
   }
 }
