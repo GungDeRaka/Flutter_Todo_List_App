@@ -10,7 +10,7 @@ class MyBottomSheetWidget extends StatelessWidget {
     return ChangeNotifierProvider<ToDoController>(
       create: (context) => ToDoController(),
       child: Container(
-        height: 400,
+        height: 150,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(8.0),
@@ -32,17 +32,40 @@ class MyBottomSheetWidget extends StatelessWidget {
                   hintText: "New task",
                 ),
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueGrey,
-                ),
-                onPressed: () {
-                  context.read<ToDoController>().addList();
-                  print(context.read<ToDoController>().taskList);
-                  Navigator.pop(context);
-                  context.read<ToDoController>().textController.clear();
-                },
-                child: const Text("Save"),
+              const SizedBox(
+              height: 12.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColorDark
+                    ),
+                    onPressed: () {
+                      context.read<ToDoController>().addTask();
+                      print(context.read<ToDoController>().taskList);
+                      Navigator.pop(context);
+                      context.read<ToDoController>().textController.clear();
+                    },
+                    child: const Text("Save"),
+                  ),
+                  const SizedBox(
+                  width: 8.0,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red[300],
+                    ),
+                    onPressed: () {
+                      print(context.read<ToDoController>().taskList);
+                      print(context.watch<ToDoController>().index);
+                      Navigator.pop(context);
+                      context.read<ToDoController>().textController.clear();
+                    },
+                    child: const Text("Cancel"),
+                  ),
+                ],
               ),
             ],
           ),

@@ -5,8 +5,17 @@ import '../widgets/my_bottom_sheet_widget.dart';
 
 class ToDoController with ChangeNotifier {
   List<String> taskList = [];
-  
+ 
+  int index = 0;
   TextEditingController textController = TextEditingController();
+   
+  bool isChecked = false;
+  void checked(int selectedIndex) {
+    // if (selectedIndex == index) {
+      isChecked = !isChecked;
+    //}
+    notifyListeners();
+  }
 
   void bottomSheet(BuildContext context) {
     showModalBottomSheet(
@@ -18,9 +27,11 @@ class ToDoController with ChangeNotifier {
     notifyListeners();
   }
 
-  void addList() {
-    taskList.add(textController.text);
-    
+  void addTask() {
+    if (textController.text.isNotEmpty) {
+      taskList.add(textController.text);
+      index+=1;
+    }
     notifyListeners();
   }
 }

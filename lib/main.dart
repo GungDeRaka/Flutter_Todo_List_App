@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'controller/todo_controller.dart';
 import 'screens/main_screen.dart';
 
-void main(){
+void main() {
   runApp(const MyApp());
 }
 
@@ -19,13 +19,12 @@ class MyApp extends StatelessWidget {
           create: (context) => ToDoController(),
         )
       ],
-      child:MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: "Flutter ToDo List App",
         darkTheme: ThemeData.dark(),
         themeMode: ThemeMode.dark,
         home: const MainScreen(),
-        
       ),
     );
   }
