@@ -10,12 +10,13 @@ class ToDoListTile extends StatelessWidget {
     required this.titleText,
     required this.value,
     this.onChanged,
+    required this.decoration,
   }) : super(key: key);
 
   final String titleText;
-   final bool value;
-final ValueChanged<bool?>? onChanged;
-  // final TextDecoration decoration;
+  final bool value;
+  final ValueChanged<bool?>? onChanged;
+  final TextDecoration decoration;
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +26,16 @@ final ValueChanged<bool?>? onChanged;
         shape: Border.all(color: Colors.white, width: 1.4),
         style: ListTileStyle.list,
         contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-        leading: Checkbox(value: value, onChanged:onChanged),
+        leading: Checkbox(value: value, onChanged: onChanged),
         title: Text(
           titleText,
           style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.w600,
-            //decoration: decoration,
-          ),
+              fontSize: 16.0,
+              fontWeight: FontWeight.w600,
+              decoration: decoration,
+              decorationStyle: TextDecorationStyle.solid),
         ),
-        trailing: Icon(Icons.star_outline),
+        trailing: const Icon(Icons.more_vert),
       ),
     );
   }

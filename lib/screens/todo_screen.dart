@@ -17,11 +17,12 @@ class ToDo extends StatelessWidget {
           itemBuilder: ((context, index) => Hero(
                 tag: "checked",
                 child: ToDoListTile(
+                  decoration: toDo.decor[index],
                     value: toDo.boolList[index],
                     onChanged: (value) {
                       toDo.checked(index, value!);
                     },
-                    titleText: context.watch<ToDoController>().taskList[index]),
+                    titleText: toDo.taskList[index]),
               )),
         ),
       ),

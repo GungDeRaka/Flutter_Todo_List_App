@@ -1,27 +1,36 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:todo_list_app/controller/todo_controller.dart';
 
 class MyBottomSheetWidget extends StatelessWidget {
-  const MyBottomSheetWidget({super.key});
+  const MyBottomSheetWidget({
+    Key? key,
+    required this.onSaved,
+    required this.onCanceled,
+  }) : super(key: key);
+  ///[onSaved] 
+  final VoidCallback? onSaved;
+  final VoidCallback? onCanceled;
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ToDoController>(
-      create: (context) => ToDoController(),
-      child: Container(
-        height: 150,
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(8.0),
-            topRight: Radius.circular(8.0),
-          ),
-          border: Border.all(
-            width: 1.0,
-            color: Colors.white70,
-          ),
+    return Container(
+      height: 150,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(8.0),
+          topRight: Radius.circular(8.0),
         ),
-        child: Center(
+        border: Border.all(
+          width: 1.0,
+          color: Colors.white70,
+        ),
+      ),
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -33,37 +42,23 @@ class MyBottomSheetWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-              height: 12.0,
+                height: 12.0,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColorDark
+                      backgroundColor: Colors.red[300],
                     ),
-                    onPressed: () {
-                      context.read<ToDoController>().addTask();
-                      print(context.read<ToDoController>().taskList);
-                      Navigator.pop(context);
-                      context.read<ToDoController>().textController.clear();
-                    },
-                    child: const Text("Save"),
-                  ),
-                  const SizedBox(
-                  width: 8.0,
+                    onPressed: onCanceled,
+                    child: const Text("Cancel"),
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red[300],
-                    ),
-                    onPressed: () {
-                      print(context.read<ToDoController>().taskList);
-                      
-                      Navigator.pop(context);
-                      context.read<ToDoController>().textController.clear();
-                    },
-                    child: const Text("Cancel"),
+                        backgroundColor: Theme.of(context).indicatorColor),
+                    onPressed: onSaved,
+                    child: const Text("Save"),
                   ),
                 ],
               ),
