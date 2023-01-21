@@ -17,43 +17,52 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-        body: myScreens[currentIndex],
-        floatingActionButton:  (currentIndex == 0)
-              ? FloatingActionButton(
-                  onPressed: () {
-                    context.read<ToDoController>().bottomSheet(context);
-                  },
-                  heroTag: "FAB",
-                  child: const Icon(Icons.add),
-                )
-              : FloatingActionButton(
-                  onPressed: () {
-                    context.read<ToDoController>().bottomSheet(context);
-                  },
-                  heroTag: "FAB",
-                  child: const Icon(Icons.delete_forever_sharp),
-                ),
-        
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: Hero(
-          tag: "FAB",
-          child: BottomNavigationBar(
-              unselectedItemColor: Colors.white,
-              showUnselectedLabels: false,
-              elevation: 16,
-              onTap: (value) {
-                setState(() {
-                  currentIndex = value;
-                });
-              },
-              currentIndex: currentIndex,
-              items: const [
-                BottomNavigationBarItem(icon: Icon(Icons.menu), label: "Tasks"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.check_outlined), label: "Completed")
-              ]),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Todo List"),
+        centerTitle: true,
+        shape: const ContinuousRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(40),
+            bottomRight: Radius.circular(40),
+          ),
         ),
-      );
+      ),
+      body: myScreens[currentIndex],
+      floatingActionButton: (currentIndex == 0)
+          ? FloatingActionButton(
+              onPressed: () {
+                context.read<ToDoController>().bottomSheet(context);
+              },
+              heroTag: "FAB",
+              child: const Icon(Icons.add),
+            )
+          : FloatingActionButton(
+              onPressed: () {
+                context.read<ToDoController>().bottomSheet(context);
+              },
+              heroTag: "FAB",
+              child: const Icon(Icons.delete_forever_sharp),
+            ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: Hero(
+        tag: "FAB",
+        child: BottomNavigationBar(
+            unselectedItemColor: Colors.white,
+            showUnselectedLabels: false,
+            elevation: 16,
+            onTap: (value) {
+              setState(() {
+                currentIndex = value;
+              });
+            },
+            currentIndex: currentIndex,
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.menu), label: "Tasks"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.check_outlined), label: "Completed")
+            ]),
+      ),
+    );
   }
 }

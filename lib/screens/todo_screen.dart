@@ -10,16 +10,17 @@ class ToDo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ToDoController>(
-      builder: (context, value, child) => Scaffold(
+      builder: (context, toDo, child) => Scaffold(
         body: ListView.builder(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           itemCount: context.watch<ToDoController>().taskList.length,
           itemBuilder: ((context, index) => Hero(
                 tag: "checked",
-                child: ToDoListTile(index,
-                    leadIcon: value.isChecked
-                        ? Icons.check_box_outlined
-                        : Icons.check_box_outline_blank,
+                child: ToDoListTile(
+                    value: toDo.boolList[index],
+                    onChanged: (value) {
+                      toDo.checked(index, value!);
+                    },
                     titleText: context.watch<ToDoController>().taskList[index]),
               )),
         ),

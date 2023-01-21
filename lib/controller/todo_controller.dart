@@ -5,15 +5,13 @@ import '../widgets/my_bottom_sheet_widget.dart';
 
 class ToDoController with ChangeNotifier {
   List<String> taskList = [];
- 
-  int index = 0;
+  List<bool> boolList = [];
+  late TextDecoration decor;
+
   TextEditingController textController = TextEditingController();
-   
-  bool isChecked = false;
-  void checked(int selectedIndex) {
-    // if (selectedIndex == index) {
-      isChecked = !isChecked;
-    //}
+
+  void checked(int index, bool newValue ) {
+    boolList[index] = newValue;
     notifyListeners();
   }
 
@@ -30,7 +28,7 @@ class ToDoController with ChangeNotifier {
   void addTask() {
     if (textController.text.isNotEmpty) {
       taskList.add(textController.text);
-      index+=1;
+      boolList.add(false);
     }
     notifyListeners();
   }

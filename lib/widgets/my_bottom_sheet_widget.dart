@@ -59,7 +59,7 @@ class MyBottomSheetWidget extends StatelessWidget {
                     ),
                     onPressed: () {
                       print(context.read<ToDoController>().taskList);
-                      print(context.watch<ToDoController>().index);
+                      
                       Navigator.pop(context);
                       context.read<ToDoController>().textController.clear();
                     },

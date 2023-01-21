@@ -3,45 +3,39 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../controller/todo_controller.dart';
-import 'checked_icon.dart';
 
 class ToDoListTile extends StatelessWidget {
-  const ToDoListTile(this.widgetIndex, {
+  const ToDoListTile({
     Key? key,
     required this.titleText,
-    required this.leadIcon,
+    required this.value,
+    this.onChanged,
   }) : super(key: key);
 
   final String titleText;
-  final IconData leadIcon;
-  final int widgetIndex;
-  
+   final bool value;
+final ValueChanged<bool?>? onChanged;
+  // final TextDecoration decoration;
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ToDoController>(
-      builder: (context, value, child) => Padding(padding: const EdgeInsets.symmetric(vertical: 4),
-        child: ListTile(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: ListTile(
         shape: Border.all(color: Colors.white, width: 1.4),
         style: ListTileStyle.list,
         contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-        leading: IconButton(
-          
-          onPressed: () {value.checked(widgetIndex);},
-          icon: Icon(
-            leadIcon,
-            size: 24.0,
+        leading: Checkbox(value: value, onChanged:onChanged),
+        title: Text(
+          titleText,
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.w600,
+            //decoration: decoration,
           ),
-        ),
-        title: Text(titleText,
-        style: TextStyle(
-        fontSize: 16.0,
-        fontWeight: FontWeight.w600,
-        decoration: value.isChecked ? TextDecoration.lineThrough : TextDecoration.none
-        ),
         ),
         trailing: Icon(Icons.star_outline),
-          ),
-      ),);
+      ),
+    );
   }
 }
