@@ -19,7 +19,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Todo List"),
+        title: const Text("Todo List"),
         centerTitle: true,
         shape: const ContinuousRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -28,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ),
       ),
-      body: myScreens[currentIndex],
+      body: myScreens[currentIndex],resizeToAvoidBottomInset: false,
       floatingActionButton: (currentIndex == 0)
           ? FloatingActionButton(
               onPressed: () {
@@ -37,9 +37,9 @@ class _MainScreenState extends State<MainScreen> {
               heroTag: "FAB",
               child: const Icon(Icons.add),
             )
-          : FloatingActionButton(
+          : FloatingActionButton(clipBehavior: Clip.antiAliasWithSaveLayer,
               onPressed: () {
-                context.read<ToDoController>().bottomSheet(context);
+                context.read<ToDoController>().clearDoneTasks();
               },
               heroTag: "FAB",
               child: const Icon(Icons.delete_forever_sharp),
@@ -48,6 +48,7 @@ class _MainScreenState extends State<MainScreen> {
       bottomNavigationBar: Hero(
         tag: "FAB",
         child: BottomNavigationBar(
+          backgroundColor: Theme.of(context).bottomAppBarColor,
             unselectedItemColor: Colors.white,
             showUnselectedLabels: false,
             elevation: 16,

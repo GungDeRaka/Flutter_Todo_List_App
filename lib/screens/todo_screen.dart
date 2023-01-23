@@ -13,14 +13,14 @@ class ToDo extends StatelessWidget {
       builder: (context, toDo, child) => Scaffold(
         body: ListView.builder(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          itemCount: context.watch<ToDoController>().taskList.length,
+          itemCount: toDo.taskList.length,
           itemBuilder: ((context, index) => Hero(
                 tag: "checked",
                 child: ToDoListTile(
-                  decoration: toDo.decor[index],
+                  
                     value: toDo.boolList[index],
                     onChanged: (value) {
-                      toDo.checked(index, value!);
+                      toDo.checked(index, value!).then((val) => toDo.afterChecked(index));
                     },
                     titleText: toDo.taskList[index]),
               )),

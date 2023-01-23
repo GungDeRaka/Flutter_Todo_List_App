@@ -25,7 +25,7 @@ class MyBottomSheetWidget extends StatelessWidget {
         ),
         border: Border.all(
           width: 1.0,
-          color: Colors.white70,
+          color: Theme.of(context).indicatorColor,
         ),
       ),
       child: Center(

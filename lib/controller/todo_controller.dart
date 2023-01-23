@@ -10,8 +10,8 @@ class ToDoController with ChangeNotifier {
   ///list bool for the value of checkbox in [ToDoListTile]
   List<bool> boolList = [];
 
-  ///list of text decoration for decorate displayed string in [taskList] index
-  List<TextDecoration> decor = [];
+
+  List<String> doneTasks = [];
 
   ///add the member of [taskList] from input user
   TextEditingController textController = TextEditingController();
@@ -22,11 +22,20 @@ class ToDoController with ChangeNotifier {
   ///[index] to update some value of [boolList] member.
   ///
   ///[newValue] for give a new value for each [boolList] index
-  void checked(int index, bool newValue) {
+  Future<void> checked(int index, bool newValue) async {
     boolList[index] = newValue;
-    decor[index] =
-        boolList[index] ? TextDecoration.lineThrough : TextDecoration.none;
     notifyListeners();
+  }
+
+  void afterChecked(int index) async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    doneTasks.add(taskList[index]);
+    taskList.removeAt(index);
+    boolList.removeAt(index);
+    notifyListeners();
+
+    print("task ${taskList.length}");
+    print("bool ${boolList.length}");
   }
 
   ///A helper function to call [MyBottomSheetWidget]
@@ -37,6 +46,8 @@ class ToDoController with ChangeNotifier {
         return MyBottomSheetWidget(
           onSaved: () {
             saveTask();
+            print("task ${taskList.length}");
+            print("bool ${boolList.length}");
             Navigator.pop(context);
           },
           onCanceled: () {
@@ -55,9 +66,18 @@ class ToDoController with ChangeNotifier {
     if (textController.text.isNotEmpty) {
       taskList.add(textController.text);
       boolList.add(false);
-      decor.add(TextDecoration.none);
     }
     textController.clear();
     notifyListeners();
+  }
+
+  void clearDoneTasks() {
+    print(taskList.length);
+    print(boolList.length);
+    print("b4 ${doneTasks.length}");
+    doneTasks.clear();
+
+    notifyListeners();
+    print("after ${doneTasks.length}");
   }
 }
