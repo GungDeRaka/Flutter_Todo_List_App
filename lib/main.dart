@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: "Flutter ToDo List App",
-        darkTheme: ThemeData.dark(),
+        darkTheme: ThemeData.dark(useMaterial3: false),
         themeMode: ThemeMode.dark,
         home: const MainScreen(),
       ),

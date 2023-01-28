@@ -10,7 +10,8 @@ class MyBottomSheetWidget extends StatelessWidget {
     required this.onSaved,
     required this.onCanceled,
   }) : super(key: key);
-  ///[onSaved] 
+
+  ///[onSaved]
   final VoidCallback? onSaved;
   final VoidCallback? onCanceled;
 
@@ -36,8 +37,25 @@ class MyBottomSheetWidget extends StatelessWidget {
             children: [
               TextFormField(
                 controller: context.read<ToDoController>().textController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  enabledBorder:const OutlineInputBorder(
+                    borderRadius:  BorderRadius.all(
+                      Radius.circular(12.0),
+                    ),
+                    borderSide: BorderSide(
+                      width: 0.5,
+                      color: Colors.white,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(12.0),
+                    ),
+                    borderSide: BorderSide(
+                      width: 2.5,
+                      color: Theme.of(context).indicatorColor,
+                    ),
+                  ),
                   hintText: "New task",
                 ),
               ),

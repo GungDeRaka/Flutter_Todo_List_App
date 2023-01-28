@@ -34,26 +34,27 @@ class ToDoController with ChangeNotifier {
     boolList.removeAt(index);
     notifyListeners();
 
-    print("task ${taskList.length}");
-    print("bool ${boolList.length}");
   }
 
   ///A helper function to call [MyBottomSheetWidget]
   void bottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      
       builder: (_) {
-        return MyBottomSheetWidget(
-          onSaved: () {
-            saveTask();
-            print("task ${taskList.length}");
-            print("bool ${boolList.length}");
-            Navigator.pop(context);
-          },
-          onCanceled: () {
-            textController.clear();
-            Navigator.pop(context);
-          },
+        return Padding(
+          padding: MediaQuery.of(context).viewInsets,
+          child: MyBottomSheetWidget(
+            onSaved: () {
+              saveTask();
+              Navigator.pop(context);
+            },
+            onCanceled: () {
+              textController.clear();
+              Navigator.pop(context);
+            },
+          ),
         );
       },
     );
@@ -72,12 +73,8 @@ class ToDoController with ChangeNotifier {
   }
 
   void clearDoneTasks() {
-    print(taskList.length);
-    print(boolList.length);
-    print("b4 ${doneTasks.length}");
     doneTasks.clear();
 
     notifyListeners();
-    print("after ${doneTasks.length}");
   }
 }

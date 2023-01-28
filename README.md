@@ -1,16 +1,4 @@
-# todo_list_app
+# Flutter Simple Todo List App
+## Just an ordinary Todo List App
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img alt="Tasks Todo Screen" src="assets\images\todo_screen.png" width ="25%" style="padding: 10px" align= "center">   <img alt="Completed Tasks Screen" src="assets\images\completed_tasks_screen.png" width ="25%" style="padding: 10px" align= "center">

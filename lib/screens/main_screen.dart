@@ -28,7 +28,8 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ),
       ),
-      body: myScreens[currentIndex],resizeToAvoidBottomInset: false,
+      body: myScreens[currentIndex],
+      resizeToAvoidBottomInset: false,
       floatingActionButton: (currentIndex == 0)
           ? FloatingActionButton(
               onPressed: () {
@@ -37,7 +38,8 @@ class _MainScreenState extends State<MainScreen> {
               heroTag: "FAB",
               child: const Icon(Icons.add),
             )
-          : FloatingActionButton(clipBehavior: Clip.antiAliasWithSaveLayer,
+          : FloatingActionButton(
+              clipBehavior: Clip.antiAliasWithSaveLayer,
               onPressed: () {
                 context.read<ToDoController>().clearDoneTasks();
               },
@@ -48,7 +50,6 @@ class _MainScreenState extends State<MainScreen> {
       bottomNavigationBar: Hero(
         tag: "FAB",
         child: BottomNavigationBar(
-          backgroundColor: Theme.of(context).bottomAppBarColor,
             unselectedItemColor: Colors.white,
             showUnselectedLabels: false,
             elevation: 16,
