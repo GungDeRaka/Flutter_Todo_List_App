@@ -16,7 +16,7 @@ class HaveDone extends StatelessWidget {
         physics: const ScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
           return Card(
-            child: DoneTaskTile(tileTitle: toDo.doneTasks[index] ,)
+            child: DoneTaskTile(tileTitle: toDo.doneTasks[index].taskName! ,)
           );
         },
       ),

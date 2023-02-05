@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list_app/model/task_model.dart';
 import 'package:todo_list_app/widgets/todo_listtile.dart';
 
 import '../widgets/my_bottom_sheet_widget.dart';
 
 class ToDoController with ChangeNotifier {
   ///a list of strings to dislay in [ToDo]
-  List<String> taskList = [];
+  List<MyTask> taskList = [];
 
-  ///list bool for the value of checkbox in [ToDoListTile]
-  List<bool> boolList = [];
-
-
-  List<String> doneTasks = [];
+  List<MyTask> doneTasks = [];
 
   ///add the member of [taskList] from input user
   TextEditingController textController = TextEditingController();
@@ -23,7 +20,8 @@ class ToDoController with ChangeNotifier {
   ///
   ///[newValue] for give a new value for each [boolList] index
   Future<void> checked(int index, bool newValue) async {
-    boolList[index] = newValue;
+    taskList[index].isDone = newValue;
+    taskList[index].isRetrieved = newValue;
     notifyListeners();
   }
 
@@ -31,9 +29,8 @@ class ToDoController with ChangeNotifier {
     await Future.delayed(const Duration(milliseconds: 500));
     doneTasks.add(taskList[index]);
     taskList.removeAt(index);
-    boolList.removeAt(index);
+    // boolList.removeAt(index);
     notifyListeners();
-
   }
 
   ///A helper function to call [MyBottomSheetWidget]
@@ -41,7 +38,6 @@ class ToDoController with ChangeNotifier {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      
       builder: (_) {
         return Padding(
           padding: MediaQuery.of(context).viewInsets,
@@ -65,8 +61,11 @@ class ToDoController with ChangeNotifier {
   ///whenever this function is called
   void saveTask() {
     if (textController.text.isNotEmpty) {
-      taskList.add(textController.text);
-      boolList.add(false);
+      taskList.add(MyTask.uncomplete(
+        taskName: textController.text,
+        isDone: false,
+        isRetrieved: true,
+      ));
     }
     textController.clear();
     notifyListeners();

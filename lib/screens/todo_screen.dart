@@ -18,11 +18,11 @@ class ToDo extends StatelessWidget {
                 tag: "ceking",
                 child: ToDoListTile(
                   
-                    value: toDo.boolList[index],
+                    value: toDo.taskList[index].isDone!,
                     onChanged: (value) {
                       toDo.checked(index, value!).then((val) => toDo.afterChecked(index));
                     },
-                    titleText: toDo.taskList[index]),
+                    titleText: toDo.taskList[index].taskName!),
               )),
         ),
       ),
