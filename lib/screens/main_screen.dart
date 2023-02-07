@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list_app/controller/todo_controller.dart';
+
 import 'package:todo_list_app/screens/have_done_screen.dart';
 import 'package:todo_list_app/screens/todo_screen.dart';
 
@@ -14,6 +16,14 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int currentIndex = 0;
   final List<Widget> myScreens = const [ToDo(), HaveDone()];
+
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   getBox();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -67,4 +77,16 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    Hive.close();
+    super.dispose();
+  }
 }
+
+
+// FutureBuilder(
+//         future: ToDoController.openBox(),
+//         builder: (context, snapshot) => myScreens[currentIndex],
+//       ),

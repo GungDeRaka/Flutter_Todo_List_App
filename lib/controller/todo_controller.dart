@@ -1,34 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:todo_list_app/model/task_model.dart';
 import 'package:todo_list_app/widgets/todo_listtile.dart';
 
 import '../widgets/my_bottom_sheet_widget.dart';
 
 class ToDoController with ChangeNotifier {
-  ///a list of strings to dislay in [ToDo]
-  List<MyTask> taskList = [];
+  // String uncompletedTaskBox = 'uncompletedTaskBox';
+  // String completedTaskBox = 'completedTaskBox';
+  Box taskList = Hive.box("uncompletedTaskBox");
+  Box doneTasks = Hive.box("completedTaskBox");
 
-  List<MyTask> doneTasks = [];
+  Future openTaskBox() async {
+    var unTaskBox = await Hive.openBox("completedTaskBox");
+    var taskBox = await Hive.openBox("uncompletedTaskBox");
+  taskList;
+  doneTasks;
+    notifyListeners();
+  }
 
   ///add the member of [taskList] from input user
   TextEditingController textController = TextEditingController();
 
-  ///a special funtion, used for everytime the checkbox in [ToDoListTile] is clicked.
+  ///a special function, used for everytime the checkbox in [ToDoListTile] is clicked.
   ///[checked] need some argument like:
   ///
   ///[index] to update some value of [boolList] member.
   ///
   ///[newValue] for give a new value for each [boolList] index
   Future<void> checked(int index, bool newValue) async {
-    taskList[index].isDone = newValue;
-    taskList[index].isRetrieved = newValue;
+    var task = taskList.getAt(index);
+    task.isDone = newValue;
+    task.isRetrieved = newValue;
     notifyListeners();
   }
 
   void afterChecked(int index) async {
+  
     await Future.delayed(const Duration(milliseconds: 500));
-    doneTasks.add(taskList[index]);
-    taskList.removeAt(index);
+    doneTasks.add(taskList.getAt(index));
+    taskList.deleteAt(index);
     // boolList.removeAt(index);
     notifyListeners();
   }
