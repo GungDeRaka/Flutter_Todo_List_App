@@ -1,15 +1,24 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 class DoneTaskTile extends StatelessWidget {
-  const DoneTaskTile({super.key, required this.tileTitle});
+  const DoneTaskTile({
+    Key? key,
+    required this.tileTitle,
+    required this.restore,
+  }) : super(key: key);
   final String tileTitle;
+  final void Function() restore;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const Icon(
-        Icons.restore,
-        size: 24.0,
+      leading: IconButton(
+      onPressed: restore,
+      icon: const Icon(
+      Icons.restore,
+      size: 24.0,
+      ),
       ),
       title: Text(
         tileTitle,

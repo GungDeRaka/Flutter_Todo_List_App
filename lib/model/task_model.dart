@@ -14,7 +14,7 @@ class MyTask {
   MyTask(this.taskName, this.isDone, this.isRetrieved);
 
   MyTask.uncomplete({this.taskName, this.isDone, this.isRetrieved});
-  MyTask.completed({this.taskName, this.isDone, this.isRetrieved});
+  // MyTask.completed({this.taskName, this.isDone, this.isRetrieved});
   
 
   @override

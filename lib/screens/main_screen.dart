@@ -18,12 +18,11 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> myScreens = const [ToDo(), HaveDone()];
 
 
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   getBox();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    ToDoController.openTaskBox();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,25 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ),
       ),
-      body: myScreens[currentIndex],
+      body: FutureBuilder(
+        future: ToDoController.openTaskBox(),
+        builder: (context, snapshot) =>
+            snapshot.connectionState == ConnectionState.waiting
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : (snapshot.hasError)
+                    ? Center(
+                        child: Text(
+                          snapshot.error.toString(),
+                          style: const TextStyle(
+                            fontSize: 28.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      )
+                    : myScreens[currentIndex],
+      ),
       resizeToAvoidBottomInset: false,
       floatingActionButton: (currentIndex == 0)
           ? FloatingActionButton(
@@ -49,7 +66,6 @@ class _MainScreenState extends State<MainScreen> {
               child: const Icon(Icons.add),
             )
           : FloatingActionButton(
-              clipBehavior: Clip.antiAliasWithSaveLayer,
               onPressed: () {
                 context.read<ToDoController>().clearDoneTasks();
               },

@@ -24,17 +24,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Future getBox() async {
-    var taskBox = await Hive.openBox("uncompletedTaskBox");
-    var doneBox = await Hive.openBox("completedTaskBox");
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getBox();
-  }
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -43,31 +32,13 @@ class _MyAppState extends State<MyApp> {
           create: (context) => ToDoController(),
         )
       ],
-      child: FutureBuilder(
-          future: getBox(),
-          builder: (context, snapshot) {
-            return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: "Flutter ToDo List App",
-              darkTheme: ThemeData.dark(useMaterial3: false),
-              themeMode: ThemeMode.dark,
-              home: snapshot.connectionState == ConnectionState.waiting
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : (snapshot.hasError)
-                      ? Center(
-                          child: Text(
-                            snapshot.error.toString(),
-                            style:const TextStyle(
-                              fontSize: 28.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )
-                      : const MainScreen(),
-            );
-          }),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "Flutter ToDo List App",
+        darkTheme: ThemeData.dark(useMaterial3: false),
+        themeMode: ThemeMode.dark,
+        home: const MainScreen(),
+      ),
     );
   }
 }
